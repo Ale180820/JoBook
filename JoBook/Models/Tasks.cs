@@ -13,6 +13,7 @@ namespace JoBook.Models {
 
     public class Tasks {
 
+        public int idTask { get; set; }
         public String name { get; set; }
         public String description { get; set; }
         public String project { get; set; }
