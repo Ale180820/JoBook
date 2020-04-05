@@ -17,6 +17,7 @@ namespace JoBook.Models {
         public String description { get; set; }
         public String project { get; set; }
         public int priority { get; set; }
+        public int idUser { get; set; }
         public DateTime dateOfDelivery { get; set; }
     }
 }
