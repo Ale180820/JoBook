@@ -20,5 +20,7 @@ namespace JoBook.Models {
         public int priority { get; set; }
         public int idUser { get; set; }
         public DateTime dateOfDelivery { get; set; }
+
+
     }
 }
