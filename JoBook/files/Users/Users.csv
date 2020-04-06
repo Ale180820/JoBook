@@ -1,7 +1,7 @@
-﻿idUser;username;name;lastname;typeUser
-1;victorisimo;Victor;Hernández;1
-2;alert;Alejandra;Recinos;1
-3;juanjuan;Juan;Herrera;2
-4;marcosj;Marcos;Jaroba;2
-5;monicau;Monica;Uribial;2
-6;odilyG;Odily;Gómez;2
+﻿idUser;username;password;name;lastname;typeUser
+1;victorisimo;1234;Victor;Hernández;1
+2;alert;1234;Alejandra;Recinos;1
+3;juanjuan;1234;Juan;Herrera;2
+4;marcosj;1234;Marcos;Jaroba;2
+5;monicau;1324;Monica;Uribial;2
+6;odilyG;1245;Odily;Gómez;2
