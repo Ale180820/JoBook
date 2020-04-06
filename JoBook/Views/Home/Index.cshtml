@@ -3,7 +3,7 @@
 }
 
 <div>
-    <br />
+    <br/>
     <div>
         <h1 class="text-center">Login</h1>
     </div>
@@ -12,14 +12,21 @@
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>
-                <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-inline" method="post">
+                <input type="submit" value="Create" class="btn btn-success" />
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-link">
+                        @Html.ActionLink("Don't have a user?", "Create", "User")
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
