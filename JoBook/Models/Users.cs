@@ -15,6 +15,7 @@ namespace JoBook.Models {
 
         public int idUser { get; set; }
 	    public String username { get; set; }
+        public String password { get; set; }
         public String name { get; set; }
         public String lastName { get; set; }
         public String typeUser { get; set; }
