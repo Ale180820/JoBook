@@ -15,7 +15,20 @@ namespace JoBook.Controllers {
             return View();
         }
 
-        public void LoadDocument() {
+        [HttpPost]
+        public ActionResult Login(FormCollection collection) {
+            var userLogin = new User {
+                Nickname = collection["Nickname"],
+                Password = collection["Password"]
+            };
+            if (userLogin.loginUser()){
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+
+                public void LoadDocument() {
             var ubication = Server.MapPath($"~/files/Users/Users.csv");
             using (var fileStream = new FileStream(ubication, FileMode.Open)) {
                 using (var streamReader = new StreamReader(fileStream)){
