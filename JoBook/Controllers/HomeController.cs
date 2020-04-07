@@ -28,7 +28,7 @@ namespace JoBook.Controllers {
         }
 
 
-                public void LoadDocument() {
+        public void LoadDocument() {
             var ubication = Server.MapPath($"~/files/Users/Users.csv");
             using (var fileStream = new FileStream(ubication, FileMode.Open)) {
                 using (var streamReader = new StreamReader(fileStream)){
