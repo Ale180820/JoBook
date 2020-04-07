@@ -1,7 +1,10 @@
-﻿using System;
+﻿using JoBook.Services;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 /*
 * @author: Aylinne Recinos
@@ -13,11 +16,32 @@ namespace JoBook.Models {
 
     public class User {
 
+        public static int codeUser = 0;
         public int IdUser { get; set; }
 	    public String Nickname { get; set; }
         public String Password { get; set; }
         public String Name { get; set; }
         public String Lastname { get; set; }
-        public String Type { get; set; }
+        public int Type { get; set; }
+
+        public bool saveUser(bool type){
+            codeUser++;
+            this.IdUser = codeUser;
+            try {
+                if (type){
+                    Storage.Instance.listUsers.Add(this);
+                }else {
+                    Storage.Instance.listUsers.Add(this);
+                    var path = AppDomain.CurrentDomain.BaseDirectory + "/files/Users/Users.csv";
+                    var streamWriter = new StreamWriter(path, true);
+                    streamWriter.WriteLine(this.IdUser + "," + this.Nickname + "," + this.Password + ","
+                        + this.Name + "," + this.Lastname + "," + this.Type);
+                    streamWriter.Close();
+                }
+                return true;
+            }catch{
+                return false;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JoBook.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,8 +31,15 @@ namespace JoBook.Controllers {
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
             try {
-                // TODO: Add insert logic her
-                return RedirectToAction("Index");
+                var newUser = new User {
+                    Name = collection["Name"],
+                    Lastname = collection["Lastname"],
+                    Nickname = collection["Nickname"],
+                    Password = collection["Password"],
+                    Type = Convert.ToInt32(collection["Type"])
+                };
+                newUser.saveUser(false);
+                return RedirectToAction("Index", "Home");
             }catch {
                 return View();
             }
