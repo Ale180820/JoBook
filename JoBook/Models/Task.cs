@@ -11,16 +11,15 @@ using System.Web;
 
 namespace JoBook.Models {
 
-    public class Tasks {
+    public class Task {
 
         public int idTask { get; set; }
-        public String name { get; set; }
-        public String description { get; set; }
-        public String project { get; set; }
-        public int priority { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public String Project { get; set; }
+        public int Priority { get; set; }
         public int idUser { get; set; }
-        public DateTime dateOfDelivery { get; set; }
-
+        public DateTime Delivery { get; set; }
 
     }
 }

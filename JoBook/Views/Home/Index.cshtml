@@ -2,24 +2,31 @@
     ViewBag.Title = "Login - JoBook";
 }
 
+<br />
 <div>
-    <br />
-    <div>
-        <h1 class="text-center">Login</h1>
-    </div>
-    <br />
-    <div>
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Username</label>
-                <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    <h1 class="text-center">Login</h1>
 </div>
+<br />
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post)) {
+    <div>
+        <div class="form-group">
+            <label for="exampleInputUsername">Nickname</label>
+            <input class="form-control" name="Nickname" aria-describedby="emailHelp" placeholder="Enter nickname">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="Password" placeholder="Password">
+        </div>
+
+        <div class="form-inline" method="post">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-link">
+                    @Html.ActionLink("Don't have a user?", "Create", "User")
+                </button>
+            </div>
+        </div>
+    </div>
+}

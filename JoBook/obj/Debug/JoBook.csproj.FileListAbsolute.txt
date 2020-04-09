@@ -164,7 +164,7 @@ C:\Users\vict_\source\repos\JoBook\JoBook\bin\es\System.Web.Razor.resources.dll
 C:\Users\vict_\source\repos\JoBook\JoBook\bin\es\System.Web.WebPages.resources.dll
 C:\Users\vict_\source\repos\JoBook\JoBook\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\vict_\source\repos\JoBook\JoBook\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.csprojAssemblyReference.cache
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.csproj.CopyComplete
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.dll
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.pdb
+C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.csprojAssemblyReference.cache
