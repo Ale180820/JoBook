@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Interfaces
 {
-    class DataStructures
-    {
+    public abstract class DataStructures<T> {
+        protected abstract void enqueueValue(T value, Comparison<T> comparison);
+        protected abstract T deleteValue(T value, Comparison<T> comparison);
     }
 }
