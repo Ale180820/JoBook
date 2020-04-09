@@ -4,8 +4,9 @@
     "\\CustomGenerics",
     "\\CustomGenerics\\Structures",
     "\\JoBook",
+    "\\JoBook\\Controllers",
     "\\JoBook\\Models"
   ],
-  "SelectedNode": "\\JoBook.sln",
+  "SelectedNode": "\\JoBook\\Controllers\\UserController.cs",
   "PreviewInSolutionExplorer": false
 }

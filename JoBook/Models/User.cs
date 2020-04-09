@@ -48,6 +48,7 @@ namespace JoBook.Models {
             bool result = false;
             foreach (var item in Storage.Instance.listUsers){
                 if (item.Nickname.Equals(this.Nickname) && item.Password.Equals(this.Password)){
+                    Storage.Instance.userLogin = item;
                     result = true;
                 }
             }

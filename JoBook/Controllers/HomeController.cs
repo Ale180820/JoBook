@@ -1,4 +1,5 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,12 @@ namespace JoBook.Controllers {
                 Password = collection["Password"]
             };
             if (userLogin.loginUser()){
-                return RedirectToAction("Index");
+                if (Storage.Instance.userLogin.Type == 2){
+                    return RedirectToAction("UserProfile","User");
+                }else{
+                    return RedirectToAction("ManagementProfile", "User");
+                }
+                
             }
             return View();
         }

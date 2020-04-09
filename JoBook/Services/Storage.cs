@@ -17,6 +17,7 @@ namespace JoBook.Services {
         }
 
         public List<User> listUsers = new List<User>();
+        public User userLogin = new User();
 
     }
 }
