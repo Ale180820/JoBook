@@ -1,4 +1,5 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,13 +23,18 @@ namespace JoBook.Controllers {
                 Password = collection["Password"]
             };
             if (userLogin.loginUser()){
-                return RedirectToAction("Index");
+                if (Storage.Instance.userLogin.Type == 2){
+                    return RedirectToAction("UserProfile","User");
+                }else{
+                    return RedirectToAction("ManagementProfile", "User");
+                }
+                
             }
             return View();
         }
 
 
-                public void LoadDocument() {
+        public void LoadDocument() {
             var ubication = Server.MapPath($"~/files/Users/Users.csv");
             using (var fileStream = new FileStream(ubication, FileMode.Open)) {
                 using (var streamReader = new StreamReader(fileStream)){

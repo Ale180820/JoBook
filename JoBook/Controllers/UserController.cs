@@ -13,6 +13,14 @@ namespace JoBook.Controllers {
             return View();
         }
 
+        public ActionResult UserProfile(){
+            return View("UserProfile");
+        }
+
+        public ActionResult ManagementProfile(){
+            return View("ManagementProfile");
+        }
+
         public ActionResult CreateView(){
             return View("Create");
         }
