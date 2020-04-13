@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0693: El parámetro de tipo tiene el mismo nombre que el parámetro de tipo de un tipo externo
+dotnet_diagnostic.CS0693.severity = none
