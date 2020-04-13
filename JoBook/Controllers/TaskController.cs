@@ -1,4 +1,5 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,12 @@ namespace JoBook.Controllers {
                     Priority = Convert.ToInt32(collection["Priority"]),
                     idUser = Convert.ToInt32(collection["idUser"])
                 };
+                var priorityTask = new Task {
+                    Name = collection["Name"],
+                    Priority = Convert.ToInt32(collection["Priority"])
+                };
+
+                Storage.Instance.taskList.Enqueue(priorityTask);
 
                 return RedirectToAction("Index");
             }catch{

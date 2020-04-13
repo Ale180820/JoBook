@@ -1,8 +1,6 @@
-﻿using JoBook.Models;
-using System;
+﻿using CustomGenerics.Structures;
+using JoBook.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace JoBook.Services {
     public class Storage {
@@ -15,8 +13,9 @@ namespace JoBook.Services {
                 return _instance;
             }
         }
-
+        
         public List<User> listUsers = new List<User>();
+        public PriorityQueue<Task> taskList = new List<Task>();
         public User userLogin = new User();
 
     }

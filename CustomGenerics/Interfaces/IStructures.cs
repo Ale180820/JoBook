@@ -16,8 +16,15 @@ namespace CustomGenerics.Interfaces {
         protected abstract void Insert(T value);
         protected abstract void Delete(T value);
         protected abstract T Get();
-       
+    }
 
+    public abstract class IQueue <T>
+    {
+        protected abstract bool IsEmpty();
+        protected abstract void Enqueue(T value);
+        protected abstract T Dequeue();
+        protected abstract T Peek();
 
+        protected abstract void Swap(int leaf, int rootposition);
     }
 }
