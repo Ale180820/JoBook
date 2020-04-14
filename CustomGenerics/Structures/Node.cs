@@ -188,5 +188,122 @@ namespace CustomGenerics.Structures
         //    public static int getRightNode(int rootPosition) {
         //        return (2 * (rootPosition + 1));
         //    }
+        private Node<T> root;
+        private Node<T> leftNode;
+        private Node<T> rightNode;
+        private T valueNode;
+        int numberNodes = 0;
+        int position = 0;
+
+        //Constructor method.
+        public Node(T value) {
+            this.valueNode = value;
+            this.rightNode = null;
+            this.leftNode = null;
+            this.position = numberNodes;
+
+        }
+        //Add node's method
+        public void AddNode(Node<T> root, T value, Comparison<T> ComparePriority) {
+            if (root.valueNode == null) {
+                root.valueNode = value;
+                numberNodes++;
+                root.position = numberNodes;
+            }
+            else if (nodeHasChild(root) == 1) {
+                AddNode(root.leftNode, value, ComparePriority);
+            }
+            else if(nodeHasChild(root) == 0) {
+                AddNode(root.rightNode, value, ComparePriority);
+            }
+            if(root.leftNode != null || root.rightNode != null) {
+                upChange(root, ComparePriority);
+            }
+        }        
+        public int nodeHasChild(Node<T> node) {
+            if(node.getLeftNode() == null && node.getRightNode() == null) {
+                return 0;
+            }
+            else {
+                return 1;
+            }  
+        }
+
+
+        public Node<T> DeleteNode(Node<T> root) {
+            Node<T> aux = root;
+            bool findWay = true;
+            int maxNodes = numberNodes;
+            
+            while(aux.position != maxNodes)
+            {
+                if (maxNodes / 2 <= 5 && findWay) {
+                    findWay = false;
+                    DeleteNode(aux.leftNode);
+                }
+                else {
+                    DeleteNode(aux.rightNode);
+                }
+                if (nodeHasChild(aux) == 0) {
+                    DeleteNode(aux.rightNode);
+                }
+                else if(nodeHasChild(aux)==1){
+                    DeleteNode(aux.leftNode);
+                }
+                else if(aux.leftNode != null && aux.rightNode == null){
+                    root = aux.leftNode;
+                    aux = null;
+                }
+                else {
+                    root = aux.rightNode;
+                    aux = null;
+                }
+            }
+            numberNodes--;
+            return root;
+        }
+
+
+        //Change the node based in priority
+        public void upChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
+            Node<T> nodeAux = nodeChange;
+            if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
+                nodeChange = nodeChange.leftNode;
+                nodeChange.leftNode = nodeAux;
+            }
+            else if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getRightNode().getNodeValue()) < 0) {
+                nodeChange = nodeChange.rightNode;
+                nodeChange.rightNode = nodeAux;
+            }
+        }
+
+
+        //Node's value
+        public void setNodeValue(T nodeValue) {
+            this.valueNode = nodeValue;
+        }
+        public T getNodeValue() {
+            return this.valueNode;
+        }
+
+        //Left Node's value
+        public void setLeftNode(Node<T> leftNode) {
+            this.leftNode = leftNode;
+        }
+        public Node<T> getLeftNode() {
+            return this.leftNode;
+        }
+
+        //Right Node's value
+        public void setRightNode(Node<T> rightNode) {
+            this.rightNode = rightNode;
+        }
+        public Node<T> getRightNode() {
+            return this.leftNode;
+        }
+
+        
+
+
     }
 }

@@ -9,13 +9,43 @@ namespace CustomGenerics.Structures
 {
     public class PriorityQueue<T>
     {
+        Node<T> root = new Node<T>();
+        
+
+        public void Enqueue(T value, )
+        {
+            if(root == null)
+            {
+                root == value;
+            }
+            else
+            {
+                this.root.add
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         class Node<T> {
             public int priority { get; set; }
             public T value { get; set; }
         }
         public void MaxHeap(int key)
         {
-            while (key >= 0 && priorityQueue[(key - 1) / 2].priority < priorityQueue[key].priority) {
+            while (key >= 0 && coladeprioridad[(key - 1) / 2].priority < coladeprioridad[key].priority) {
                 changeNode(key, (key - 1) / 2);
                 key = (key - 1) / 2;
             }
@@ -23,19 +53,19 @@ namespace CustomGenerics.Structures
 
         public void MinHeap(int key)
         {
-            while (key >= 0 && priorityQueue[(key - 1) / 2].priority > priorityQueue[key].priority) {
+            while (key >= 0 && coladeprioridad[(key - 1) / 2].priority > coladeprioridad[key].priority) {
                 changeNode(key, (key - 1) / 2);
                 key = (key - 1) / 2;
             }
         }
 
-        List<Node<T>> priorityQueue = new List<Node<T>>();
+        List<Node<T>> coladeprioridad = new List<Node<T>>();
         int size = -1;
         bool minPriority;
         public int Count {
             get
             {
-                return priorityQueue.Count;
+                return coladeprioridad.Count;
             }
         }
         public PriorityQueue(bool minPriority) {
@@ -52,9 +82,9 @@ namespace CustomGenerics.Structures
         public T Dequeue()
         {
             if (size > -1) {
-                var valueRet = priorityQueue[0].value;
-                priorityQueue[0] = priorityQueue[size];
-                priorityQueue.RemoveAt(size);
+                var valueRet = coladeprioridad[0].value;
+                coladeprioridad[0] = coladeprioridad[size];
+                coladeprioridad.RemoveAt(size);
                 size = size - 1;
                 if (minPriority) {
                     minHeap(0);
@@ -68,9 +98,9 @@ namespace CustomGenerics.Structures
         }
 
         public T peek() { 
-            if(priorityQueue.Count != 0)
+            if(coladeprioridad.Count != 0)
             {
-                return priorityQueue[0].value;
+                return coladeprioridad[0].value;
             }
             else {
                 return default(T);
@@ -84,13 +114,13 @@ namespace CustomGenerics.Structures
             rightNode = getRightNode(key);
             upMost = key;
 
-            if ((leftNode <= size) && (priorityQueue[upMost].priority) <
-                (priorityQueue[leftNode].priority))
+            if ((leftNode <= size) && (coladeprioridad[upMost].priority) <
+                (coladeprioridad[leftNode].priority))
             {
                 upMost = leftNode;
             }
-            else if ((rightNode <= size) && (priorityQueue[upMost].priority) <
-                (priorityQueue[rightNode].priority))
+            else if ((rightNode <= size) && (coladeprioridad[upMost].priority) <
+                (coladeprioridad[rightNode].priority))
             {
                 upMost = leftNode;
             }
@@ -107,13 +137,13 @@ namespace CustomGenerics.Structures
             leftNode = getLeftNode(key);
             rightNode = getRightNode(key);
             downMost = key;
-            if ((leftNode <= size) && (priorityQueue[downMost].priority) <
-                (priorityQueue[leftNode].priority))
+            if ((leftNode <= size) && (coladeprioridad[downMost].priority) <
+                (coladeprioridad[leftNode].priority))
             {
                 downMost = leftNode;
             }
-            else if ((rightNode <= size) && (priorityQueue[downMost].priority) <
-                (priorityQueue[rightNode].priority))
+            else if ((rightNode <= size) && (coladeprioridad[downMost].priority) <
+                (coladeprioridad[rightNode].priority))
             {
                 downMost = leftNode;
             }
@@ -126,9 +156,9 @@ namespace CustomGenerics.Structures
 
         public void changeNode(int before, int after)
         {
-            var aux = priorityQueue[before];
-            priorityQueue[before] = priorityQueue[after];
-            priorityQueue[after] = aux;
+            var aux = coladeprioridad[before];
+            coladeprioridad[before] = coladeprioridad[after];
+            coladeprioridad[after] = aux;
         }
 
         public void updatePriority(T value, int priority)
@@ -136,7 +166,7 @@ namespace CustomGenerics.Structures
             int i = 0;
             for (; i <= size; i++)
             {
-                Node<T> newNode = priorityQueue[i];
+                Node<T> newNode = coladeprioridad[i];
                 if (object.ReferenceEquals(newNode.value, value)) {
                     newNode.priority = priority;
                     if (minPriority) {

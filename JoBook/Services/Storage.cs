@@ -1,4 +1,4 @@
-﻿using CustomGenerics.Structures;
+﻿//using CustomGenerics.Structures;
 using JoBook.Models;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace JoBook.Services {
         }
         
         public List<User> listUsers = new List<User>();
-        public PriorityQueue<Task> taskList = new List<Task>();
+        //public PriorityQueue<Task> taskList = new List<Task>();
         public User userLogin = new User();
 
     }

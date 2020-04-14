@@ -47,6 +47,5 @@
     <Compile Include="Structures\Node.cs" />
     <Compile Include="Structures\PriorityQueue.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
