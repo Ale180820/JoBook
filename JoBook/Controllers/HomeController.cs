@@ -28,11 +28,11 @@ namespace JoBook.Controllers {
                 }else{
                     return RedirectToAction("ManagementProfile", "User");
                 }
-                
-            }
+       
+            
+           }
             return View();
         }
-
 
         public void LoadDocument() {
             var ubication = Server.MapPath($"~/files/Users/Users.csv");

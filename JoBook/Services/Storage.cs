@@ -16,6 +16,7 @@ namespace JoBook.Services {
         
         public List<User> listUsers = new List<User>();
         public User userLogin = new User();
+        public PriorityQueue<Task> queueTask = new PriorityQueue<Task>();
         public HashTable<Task> hashTable = new HashTable<Task>();
 
     }
