@@ -24,6 +24,14 @@ namespace JoBook.Models {
         public String Lastname { get; set; }
         public int Type { get; set; }
 
+        public string evaluateTypeUser(){
+            if (Type == 1){
+                return "Management";
+            }else{
+                return "Developer";
+            }
+        }
+
         public bool saveUser(bool type){
             codeUser++;
             this.IdUser = codeUser;

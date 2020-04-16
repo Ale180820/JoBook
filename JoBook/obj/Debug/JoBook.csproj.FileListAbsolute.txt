@@ -168,3 +168,7 @@ C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.csproj.CopyComplete
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.dll
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.pdb
 C:\Users\vict_\source\repos\JoBook\JoBook\obj\Debug\JoBook.csprojAssemblyReference.cache
+C:\Users\ayalr\source\repos\JoBook\JoBook\bin\CustomGenerics.dll
+C:\Users\ayalr\source\repos\JoBook\JoBook\bin\CustomGenerics.pdb
+C:\Users\vict_\source\repos\JoBook\JoBook\bin\CustomGenerics.dll
+C:\Users\vict_\source\repos\JoBook\JoBook\bin\CustomGenerics.pdb
