@@ -26,9 +26,7 @@ namespace CustomGenerics.Structures
 
         }
 
-        public Node()
-        {
-        }
+        public Node(){}
 
         //Add node's method
         public void AddNode(Node<T> root, T value, Comparison<T> ComparePriority) {
@@ -56,20 +54,19 @@ namespace CustomGenerics.Structures
             }  
         }
 
-
-        public Node<T> DeleteNode(Node<T> rot, Node<T> lastNode, int initialLevel) {
-            T aux = lastNode.valueNode;
-            while(lastNode != null && lastNode.position == numberNodes && initialLevel >= 1) {
+        //Delete the last node in the queue
+        public T DeleteNode(Node<T> lastNode, int initialLevel) {
+            Node<T> aux = lastNode;
+            while(lastNode != null && lastNode.position != numberNodes && initialLevel >= 1) { 
                 if ((numberNodes / (2 ^ (initialLevel - 1))) % 2 == 0) {
-                     initialLevel--;
-                     DeleteNode(lastNode.leftNode, initialLevel - 1);
+                     DeleteNode(lastNode.leftNode, initialLevel--);
                 }
-                else if ((numberNodes / (2 ^ (initialLevel))) % 2 == 1) {
-                    initialLevel--;
-                    DeleteNode(lastNode.rightNode, initialLevel);
+                else if ((numberNodes / (2 ^ (initialLevel-1))) % 2 == 1) {
+                    DeleteNode(lastNode.rightNode, initialLevel--);
                 }
             }
-            
+            lastNode = null;
+            return aux.valueNode;
         }
 
         public int level() {
@@ -89,7 +86,36 @@ namespace CustomGenerics.Structures
                 nodeChange.rightNode = nodeAux;
             }
         }
+       
+        public void downChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
+            Node<T> nodeAux = nodeChange;
 
+            if (nodeChange.rightNode == null)
+            {
+                if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
+                    nodeChange = nodeChange.leftNode;
+                    nodeChange.leftNode = nodeAux;
+                    downChange(nodeChange.leftNode, ComparePriority);
+                }
+            }
+            else {
+                if (ComparePriority.Invoke(nodeChange.getLeftNode().getNodeValue(), nodeChange.getRightNode().getNodeValue()) < 0) {
+                    if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getRightNode().getNodeValue()) < 0) {
+                        nodeChange = nodeChange.rightNode;
+                        nodeChange.rightNode = nodeAux;
+                        downChange(nodeChange.rightNode, ComparePriority);
+                        
+                    }
+                }
+                else if (ComparePriority.Invoke(nodeChange.getRightNode().getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
+                    if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
+                        nodeChange = nodeChange.leftNode;
+                        nodeChange.leftNode = nodeAux;
+                        downChange(nodeChange.leftNode, ComparePriority);
+                    }
+                }
+            }
+        }
 
         //Node's value
         public void setNodeValue(T nodeValue) {
@@ -114,9 +140,5 @@ namespace CustomGenerics.Structures
         public Node<T> getRightNode() {
             return this.leftNode;
         }
-
-        
-
-
     }
 }

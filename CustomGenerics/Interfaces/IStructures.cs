@@ -18,4 +18,11 @@ namespace CustomGenerics.Interfaces {
         protected abstract T Get();
     }
 
+    public abstract class IPriorityQueue <T>
+    {
+        protected abstract void Enqueue(T value, Comparison<T> comparison);
+        protected abstract T Dequeue(T value, Comparison<T> comparison);
+        protected abstract T peek();
+    }
+
 }
