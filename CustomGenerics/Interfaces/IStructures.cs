@@ -16,8 +16,13 @@ namespace CustomGenerics.Interfaces {
         protected abstract void Insert(T value);
         protected abstract void Delete(T value);
         protected abstract T Get();
-       
-
-
     }
+
+    public abstract class IPriorityQueue <T>
+    {
+        protected abstract void Enqueue(T value, Comparison<T> comparison);
+        protected abstract T Dequeue(T value, Comparison<T> comparison);
+        protected abstract T peek();
+    }
+
 }

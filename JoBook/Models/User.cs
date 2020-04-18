@@ -1,6 +1,7 @@
 ﻿using JoBook.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -18,19 +19,19 @@ namespace JoBook.Models {
 
         public static int codeUser = 0;
         public int IdUser { get; set; }
-	    public String Nickname { get; set; }
+        public String Nickname { get; set; }
         public String Password { get; set; }
         public String Name { get; set; }
         public String Lastname { get; set; }
         public int Type { get; set; }
 
-        public bool saveUser(bool type){
+        public bool saveUser(bool type) {
             codeUser++;
             this.IdUser = codeUser;
             try {
-                if (type){
+                if (type) {
                     Storage.Instance.listUsers.Add(this);
-                }else {
+                } else {
                     Storage.Instance.listUsers.Add(this);
                     var path = AppDomain.CurrentDomain.BaseDirectory + "/files/Users/Users.csv";
                     var streamWriter = new StreamWriter(path, true);
@@ -39,20 +40,38 @@ namespace JoBook.Models {
                     streamWriter.Close();
                 }
                 return true;
-            }catch{
+            } catch {
                 return false;
             }
         }
 
-        public bool loginUser(){
+        public bool loginUser() {
             bool result = false;
-            foreach (var item in Storage.Instance.listUsers){
-                if (item.Nickname.Equals(this.Nickname) && item.Password.Equals(this.Password)){
+            foreach (var item in Storage.Instance.listUsers) {
+                if (item.Nickname.Equals(this.Nickname) && item.Password.Equals(this.Password)) {
                     Storage.Instance.userLogin = item;
                     result = true;
                 }
             }
             return result;
+        }
+
+        public string returnGreeting(){
+            if (DateTime.Now.ToString("tt", CultureInfo.InvariantCulture) == "AM"){
+                return "¡Buenos días!";
+            }else if(DateTime.Now.ToString("tt", CultureInfo.InvariantCulture) == "PM"){
+                return "¡Buenas tardes!";
+            }else{
+                return "";
+            }
+        }
+
+        public string evaluateTypeUser(){
+            if (Type == 1){
+                return "Management";
+            }else{
+                return "Developer";
+            }
         }
     }
 }

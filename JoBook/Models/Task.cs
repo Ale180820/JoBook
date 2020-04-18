@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JoBook.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,12 +15,25 @@ namespace JoBook.Models {
     public class Task {
 
         public int idTask { get; set; }
-        public String name { get; set; }
-        public String description { get; set; }
-        public String project { get; set; }
-        public int priority { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public String Project { get; set; }
+        public int Priority { get; set; }
         public int idUser { get; set; }
-        public DateTime dateOfDelivery { get; set; }
+        public DateTime Delivery { get; set; }
 
+        public static Comparison<Task> ComparePriority = delegate (Task task1, Task task2) {
+            return task1.Priority.CompareTo(task2.Priority);
+        };
+
+
+        public bool saveTask() {
+            try {
+                Storage.Instance.hashTable.put(this.Name, this);
+                return true;
+            }catch{
+                return false;
+            }
+        }
     }
 }
