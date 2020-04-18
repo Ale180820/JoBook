@@ -21,6 +21,9 @@ namespace JoBook.Models {
         public int idUser { get; set; }
         public DateTime Delivery { get; set; }
 
+        /// <summary>
+        /// Delegate to compare the tasks
+        /// </summary>
         public static Comparison<Task> ComparePriority = delegate (Task task1, Task task2) {
             return task1.Priority.CompareTo(task2.Priority);
         };

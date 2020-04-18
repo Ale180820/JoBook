@@ -23,12 +23,15 @@ namespace CustomGenerics.Structures
             this.rightNode = null;
             this.leftNode = null;
             this.position = numberNodes;
-
         }
-
         public Node(){}
-
-        //Add node's method
+        
+        /// <summary>
+        /// Add node in the queue
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="value"></param>
+        /// <param name="ComparePriority"></param>
         public void AddNode(Node<T> root, T value, Comparison<T> ComparePriority) {
             if (root.valueNode == null) {
                 root.valueNode = value;
@@ -45,6 +48,11 @@ namespace CustomGenerics.Structures
                 upChange(root, ComparePriority);
             }
         }        
+        /// <summary>
+        /// Checks if the node has children
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public int nodeHasChild(Node<T> node) {
             if(node.getLeftNode() == null && node.getRightNode() == null) {
                 return 0;
@@ -54,7 +62,13 @@ namespace CustomGenerics.Structures
             }  
         }
 
-        //Delete the last node in the queue
+        
+        /// <summary>
+        /// Delete the last node in the queue 
+        /// </summary>
+        /// <param name="lastNode"></param>
+        /// <param name="initialLevel"></param>
+        /// <returns></returns>
         public T DeleteNode(Node<T> lastNode, int initialLevel) {
             Node<T> aux = lastNode;
             while(lastNode != null && lastNode.position != numberNodes && initialLevel >= 1) { 
@@ -73,8 +87,11 @@ namespace CustomGenerics.Structures
             return Convert.ToInt32((Math.Log(Math.E, Convert.ToDouble(numberNodes)))/Math.Log(Math.E, 2));
         }
 
-
-        //Change the node based in priority
+        /// <summary>
+        /// Change the node based in priority 
+        /// </summary>
+        /// <param name="nodeChange"></param>
+        /// <param name="ComparePriority"></param>
         public void upChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
             Node<T> nodeAux = nodeChange;
             if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
@@ -87,6 +104,11 @@ namespace CustomGenerics.Structures
             }
         }
        
+        /// <summary>
+        /// Change the node since the root
+        /// </summary>
+        /// <param name="nodeChange"></param>
+        /// <param name="ComparePriority"></param>
         public void downChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
             Node<T> nodeAux = nodeChange;
 
