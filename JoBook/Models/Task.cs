@@ -29,11 +29,14 @@ namespace JoBook.Models {
 
         public bool saveTask() {
             try {
-                Storage.Instance.hashTable.put(this.Name, this);
+                Storage.Instance.hashTable.insert(this.Name, this);
+                Storage.Instance.hashTable.delete("Login");
                 return true;
             }catch{
                 return false;
             }
+
+            
         }
     }
 }
