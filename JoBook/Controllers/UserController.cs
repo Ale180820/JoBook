@@ -14,7 +14,10 @@ namespace JoBook.Controllers {
         }
 
         public ActionResult UserProfile(){
+            
+
             return View("UserProfile");
+
         }
 
         public ActionResult ManagementProfile(){

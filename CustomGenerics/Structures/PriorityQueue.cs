@@ -11,6 +11,7 @@ namespace CustomGenerics.Structures
     public class PriorityQueue<T> : IPriorityQueue<T>
     {
         Node<T> root = new Node<T>();
+   
         public void EnqueueTask(T value, Comparison<T> comparison){
             Enqueue(value, comparison);
         }

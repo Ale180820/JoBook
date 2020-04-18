@@ -28,9 +28,7 @@ namespace JoBook.Controllers {
                 }else{
                     return RedirectToAction("ManagementProfile", "User");
                 }
-       
-            
-           }
+            }
             return View();
         }
 
