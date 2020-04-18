@@ -35,13 +35,7 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-                var priorityTask = new Task {
-                    Name = collection["Name"],
-                    Priority = Convert.ToInt32(collection["Priority"])
-                };
-
-                Storage.Instance.queueTask.EnqueueTask(priorityTask, Task.ComparePriority);
-
+                newTask.saveTask();
                 return RedirectToAction("ManagementProfile", "User");
             }
             catch{
