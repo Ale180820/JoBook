@@ -5,7 +5,8 @@
     "\\CustomGenerics\\Structures",
     "\\JoBook",
     "\\JoBook\\Controllers",
-    "\\JoBook\\Models"
+    "\\JoBook\\Models",
+    "\\JoBook\\Services"
   ],
   "SelectedNode": "\\JoBook.sln",
   "PreviewInSolutionExplorer": false

@@ -26,6 +26,7 @@ namespace JoBook.Controllers {
         // POST: Task/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
+            try {
                 var newTask = new Task {
                     Name = collection["Name"],
                     Description = collection["Description"],
@@ -34,27 +35,12 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-                var priorityTask = new Task {
-                    Name = collection["Name"],
-                    Priority = Convert.ToInt32(collection["Priority"])
-                };
-
-                Storage.Instance.queueTask.EnqueueTask(priorityTask, Task.ComparePriority);
-
-                if (Storage.Instance.userLogin.loginUser())
-                {
-                    if (Storage.Instance.userLogin.Type == 2)
-                    {
-                        return RedirectToAction("UserProfile", "User");
-                    }
-                    else
-                    {
-                        return RedirectToAction("ManagementProfile", "User");
-                    }
-                }
+                newTask.saveTask();
+                return RedirectToAction("ManagementProfile", "User");
+            }
+            catch{
                 return View();
-
-  
+            }
         }
 
         // GET: Task/Edit/5

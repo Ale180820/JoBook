@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JoBook.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,5 +29,17 @@ namespace JoBook.Models {
             return task1.Priority.CompareTo(task2.Priority);
         };
 
+
+        public bool saveTask() {
+            try {
+                Storage.Instance.hashTable.insert(this.Name, this);
+                Storage.Instance.hashTable.delete("Login");
+                return true;
+            }catch{
+                return false;
+            }
+
+            
+        }
     }
 }
