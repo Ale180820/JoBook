@@ -16,8 +16,8 @@ namespace CustomGenerics.Structures
             Enqueue(value, comparison);
         }
 
-        public T DequeueTask(T value, Comparison<T> comparison) {
-            return Dequeue(value, comparison);
+        public T DequeueTask(Comparison<T> comparison) {
+            return Dequeue(comparison);
         }
 
         public T PeekTask() {
@@ -26,10 +26,11 @@ namespace CustomGenerics.Structures
         protected override void Enqueue(T value, Comparison<T> comparison) {
             this.root.AddNode(root, value, comparison);
         }
-        protected override T Dequeue(T value, Comparison<T> comparison) {
+        protected override T Dequeue(Comparison<T> comparison) {
             T dequeueNode = root.getNodeValue();
             root.setNodeValue(root.DeleteNode(root, root.level()));
-            root.downChange(root, comparison);
+            T auxRoot = root.getNodeValue();
+            root.downChange(root, auxRoot, comparison);
             return dequeueNode;
         }
 

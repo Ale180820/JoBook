@@ -15,7 +15,6 @@ namespace CustomGenerics.Structures
         private T valueNode;
         int numberNodes = 0;
         int position = 0;
-        int levelComplete = 0;
 
         //Constructor method.
         public Node(T value) {
@@ -61,9 +60,10 @@ namespace CustomGenerics.Structures
             }
 
             if (root.leftNode.valueNode != null || root.rightNode.valueNode != null) {
-                upChange(root, ComparePriority);
+                T val = root.valueNode;
+                upChange(root, val, ComparePriority);
             }
-        }        
+        }
         /// <summary>
         /// Checks if the node has children
         /// </summary>
@@ -108,22 +108,26 @@ namespace CustomGenerics.Structures
         /// </summary>
         /// <param name="nodeChange"></param>
         /// <param name="ComparePriority"></param>
-        public void upChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
-            Node<T> nodeAux = nodeChange;
-            if (nodeChange.leftNode.valueNode != null && nodeChange.rightNode.valueNode != null) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+        public void upChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority) {
+            
+            if (nodeHasChild(nodeChange) == 1)
+            {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0)
+                {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
-                    nodeChange.leftNode.valueNode = nodeAux.valueNode;
+                    nodeChange.leftNode.valueNode = original;
                 }
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0)
+                {
                     nodeChange.valueNode = nodeChange.rightNode.valueNode;
-                    nodeChange.rightNode.valueNode = nodeAux.valueNode;
+                    nodeChange.rightNode.valueNode = original;
                 }
             }
-            else if(nodeChange.rightNode.valueNode == null){
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+            else if (nodeChange.rightNode.valueNode == null) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0)
+                {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
-                    nodeChange.leftNode.valueNode = nodeAux.valueNode;
+                    nodeChange.leftNode.valueNode = original;
                 }
             }
         }
@@ -133,31 +137,30 @@ namespace CustomGenerics.Structures
         /// </summary>
         /// <param name="nodeChange"></param>
         /// <param name="ComparePriority"></param>
-        public void downChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
-            Node<T> nodeAux = nodeChange;
+        public void downChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority) {
 
             if (nodeChange.rightNode == null)
             {
-                if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
-                    nodeChange = nodeChange.leftNode;
-                    nodeChange.leftNode = nodeAux;
-                    downChange(nodeChange.leftNode, ComparePriority);
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+                    nodeChange.valueNode = nodeChange.leftNode.valueNode;
+                    nodeChange.leftNode.valueNode = original;
+                    downChange(nodeChange.leftNode,original, ComparePriority);
                 }
             }
             else {
-                if (ComparePriority.Invoke(nodeChange.getLeftNode().getNodeValue(), nodeChange.getRightNode().getNodeValue()) < 0) {
-                    if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getRightNode().getNodeValue()) < 0) {
-                        nodeChange = nodeChange.rightNode;
-                        nodeChange.rightNode = nodeAux;
-                        downChange(nodeChange.rightNode, ComparePriority);
+                if (ComparePriority.Invoke(nodeChange.leftNode.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                    if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                        nodeChange.valueNode = nodeChange.rightNode.valueNode;
+                        nodeChange.rightNode.valueNode = original;
+                        downChange(nodeChange.rightNode, original, ComparePriority);
                         
                     }
                 }
-                else if (ComparePriority.Invoke(nodeChange.getRightNode().getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
-                    if (ComparePriority.Invoke(nodeChange.getNodeValue(), nodeChange.getLeftNode().getNodeValue()) < 0) {
-                        nodeChange = nodeChange.leftNode;
-                        nodeChange.leftNode = nodeAux;
-                        downChange(nodeChange.leftNode, ComparePriority);
+                else if (ComparePriority.Invoke(nodeChange.rightNode.valueNode, nodeChange.leftNode.valueNode) < 0) {
+                    if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) < 0) {
+                        nodeChange.valueNode = nodeChange.leftNode.valueNode;
+                        nodeChange.leftNode.valueNode = original;
+                        downChange(nodeChange.leftNode, original, ComparePriority);
                     }
                 }
             }

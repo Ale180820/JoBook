@@ -1,4 +1,5 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,12 @@ namespace JoBook.Controllers {
 
         }
 
-        public ActionResult ManagementProfile(){
+        public ActionResult ManagementProfile(string completed){
+
+            if (!String.IsNullOrEmpty(completed)) {
+                Storage.Instance.queueTask.DequeueTask(Task.ComparePriority);
+            }
+
             return View("ManagementProfile");
         }
 

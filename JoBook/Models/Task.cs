@@ -38,8 +38,6 @@ namespace JoBook.Models {
             }catch{
                 return false;
             }
-
-            
         }
     }
 }

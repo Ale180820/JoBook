@@ -84,7 +84,6 @@ namespace CustomGenerics.Structures {
 
             numProbes = iteration - 1;
             return false;
-
         }
 
         private int probe(String key, int iteration, int size) {
