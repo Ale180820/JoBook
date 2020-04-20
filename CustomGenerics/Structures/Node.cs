@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+namespace CustomGenerics.Structures {
 
-namespace CustomGenerics.Structures
-{
     class Node<T>{
 
         private Node<T> root;
@@ -34,22 +29,21 @@ namespace CustomGenerics.Structures
                 root.valueNode = value;
                 numberNodes++;
                 root.position = numberNodes;
-            }
-            else if (nodeHasChild(root) == 1) {
+            } else if (nodeHasChild(root) == 1) {
                 AddNode(root.leftNode, value, ComparePriority);
-            }
-            else if(nodeHasChild(root) == 0) {
+            } else if(nodeHasChild(root) == 0) {
                 AddNode(root.rightNode, value, ComparePriority);
             }
+
             if(root.leftNode != null || root.rightNode != null) {
                 upChange(root, ComparePriority);
             }
-        }        
+        }
+        
         public int nodeHasChild(Node<T> node) {
             if(node.getLeftNode() == null && node.getRightNode() == null) {
                 return 0;
-            }
-            else {
+            } else {
                 return 1;
             }  
         }
@@ -60,8 +54,7 @@ namespace CustomGenerics.Structures
             while(lastNode != null && lastNode.position != numberNodes && initialLevel >= 1) { 
                 if ((numberNodes / (2 ^ (initialLevel - 1))) % 2 == 0) {
                      DeleteNode(lastNode.leftNode, initialLevel--);
-                }
-                else if ((numberNodes / (2 ^ (initialLevel-1))) % 2 == 1) {
+                } else if ((numberNodes / (2 ^ (initialLevel-1))) % 2 == 1) {
                     DeleteNode(lastNode.rightNode, initialLevel--);
                 }
             }

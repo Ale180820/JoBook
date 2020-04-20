@@ -1,13 +1,10 @@
 ﻿using JoBook.Models;
-using JoBook.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace JoBook.Controllers {
     public class TaskController : Controller {
+
         // GET: Task
         public ActionResult Index() {
             return View();
@@ -35,10 +32,9 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-                newTask.saveTask();
+                newTask.saveTask(false);
                 return RedirectToAction("ManagementProfile", "User");
-            }
-            catch{
+            }catch{
                 return View();
             }
         }
