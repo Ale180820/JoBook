@@ -1,13 +1,10 @@
 ﻿using JoBook.Models;
-using JoBook.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace JoBook.Controllers {
     public class TaskController : Controller {
+
         // GET: Task
         public ActionResult Index() {
             return View();
@@ -26,10 +23,8 @@ namespace JoBook.Controllers {
         // POST: Task/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try
-            {
-                var newTask = new Task
-                {
+            try {
+                var newTask = new Task {
                     Name = collection["Name"],
                     Description = collection["Description"],
                     Project = collection["Proyect"],
@@ -37,31 +32,12 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-                var enqueueTask = new Task
-                {
-                    Name = collection["Name"],
-                    Priority = Convert.ToInt32(collection["Priority"])
-                };
-                newTask.saveTask();
-                Storage.Instance.queueTask.EnqueueTask(enqueueTask, Task.ComparePriority);
-                Storage.Instance.hashTable.insert(newTask.Name, newTask);
-
-                if (Storage.Instance.userLogin.loginUser())
-                {
-                    if (Storage.Instance.userLogin.Type == 2) {
-                        return RedirectToAction("UserProfile", "User");
-                    }
-                    else {
-                        return RedirectToAction("ManagementProfile", "User");
-                    }
-                }
-                return View();
-            }
-            catch{
+                newTask.saveTask(false);
+                return RedirectToAction("ManagementProfile", "User");
+            }catch{
                 return View();
             }
         }
-
 
         // GET: Task/Edit/5
         public ActionResult Edit(int id) {

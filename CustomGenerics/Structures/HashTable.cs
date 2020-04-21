@@ -1,10 +1,6 @@
-﻿using CustomGenerics.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 * @author: victorisimoo
@@ -12,8 +8,8 @@ using System.Threading.Tasks;
 * @description: Class for HashTable Structure
 */
 
-
 namespace CustomGenerics.Structures {
+
     public class HashTable<T> : IEnumerable<T> {
 
         private class HashEntry<T> {
@@ -51,7 +47,7 @@ namespace CustomGenerics.Structures {
             for (int i = 0; i < oldTable.Length; ++i) {
                 if (oldTable[i] != null && !oldTable[i].IsDeleted()){
                     foreach (T value in oldTable[i].returnValue()){
-
+                        insert(oldTable[i].key, value);
                     }
                 }
             }
@@ -81,7 +77,6 @@ namespace CustomGenerics.Structures {
                     return true;
                 }
             }
-
             numProbes = iteration - 1;
             return false;
         }
@@ -129,8 +124,6 @@ namespace CustomGenerics.Structures {
             }
             return false;
         }
-        
-        
 
         //Interface method
         IEnumerator IEnumerable.GetEnumerator() {
@@ -141,5 +134,6 @@ namespace CustomGenerics.Structures {
         public IEnumerator<T> GetEnumerator() {
             throw new NotImplementedException();
         }
+
     }
 }

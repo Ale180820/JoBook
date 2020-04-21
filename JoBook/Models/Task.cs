@@ -1,8 +1,6 @@
 ﻿using JoBook.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.IO;
 
 /*
  * @author: Aylinne Recinos
@@ -29,11 +27,18 @@ namespace JoBook.Models {
             return task1.Priority.CompareTo(task2.Priority);
         };
 
-
-        public bool saveTask() {
+        public bool saveTask(bool type) {
             try {
-                Storage.Instance.hashTable.insert(this.Name, this);
-                Storage.Instance.hashTable.delete("Login");
+                if (type) {
+                    Storage.Instance.hashTable.insert(this.Name, this);
+                }else {
+                    Storage.Instance.hashTable.insert(this.Name, this);
+                    var path = AppDomain.CurrentDomain.BaseDirectory + "/files/Tasks/Tasks.csv";
+                    var streamWriter = new StreamWriter(path, true);
+                    streamWriter.WriteLine(this.idTask + "," + this.Name + "," + this.Description + "," + this.Project + ","
+                        + this.Priority + "," + this.idUser + "," + this.Delivery);
+                    streamWriter.Close();
+                }
                 return true;
             }catch{
                 return false;
