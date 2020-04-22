@@ -8,6 +8,17 @@ namespace JoBook.Controllers {
 
         // GET: Task
         public ActionResult Index() {
+            if (Storage.Instance.userLogin.loginUser())
+            {
+                if (Storage.Instance.userLogin.Type == 2)
+                {
+                    return RedirectToAction("UserProfile", "User");
+                }
+                else
+                {
+                    return RedirectToAction("ManagementProfile", "User");
+                }
+            }
             return View();
         }
 
@@ -43,7 +54,7 @@ namespace JoBook.Controllers {
                 if (newTask.saveTask(false)) {
                     Storage.Instance.queueTask.EnqueueTask(enqueueTask, Task.ComparePriority);
                 }
-
+                
                 if (Storage.Instance.userLogin.loginUser()) {
                     if (Storage.Instance.userLogin.Type == 2) {
                         return RedirectToAction("UserProfile", "User");

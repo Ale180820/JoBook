@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CustomGenerics.Structures {
 
@@ -10,6 +12,8 @@ namespace CustomGenerics.Structures {
         private T valueNode;
         int numberNodes = 0;
         int position = 0;
+        int levelCompleted = 0;
+        int nodesInLevel = 0;
 
         //Constructor method.
         public Node(T value) {
@@ -32,6 +36,7 @@ namespace CustomGenerics.Structures {
                 root.leftNode = new Node<T>();
                 root.rightNode = new Node<T>();
                 numberNodes++;
+                nodesInLevel++;
                 root.position = numberNodes;
             }
             else if (root.leftNode.valueNode == null && root.rightNode.valueNode == null) {
@@ -83,18 +88,40 @@ namespace CustomGenerics.Structures {
         public T DeleteNode(Node<T> lastNode, int initialLevel) {
             Node<T> aux = lastNode;
             while(lastNode != null && lastNode.position != numberNodes && initialLevel >= 1) { 
-                if ((numberNodes / (2 ^ (initialLevel - 1))) % 2 == 0) {
+                if ((numberNodes / (Math.Pow((initialLevel - 1),2))) % 2 == 0) {
                      DeleteNode(lastNode.leftNode, initialLevel--);
-                } else if ((numberNodes / (2 ^ (initialLevel-1))) % 2 == 1) {
+                } else if ((numberNodes / (Math.Pow((initialLevel - 1), 2))) % 2 == 1) {
                     DeleteNode(lastNode.rightNode, initialLevel--);
                 }
             }
-            lastNode = null;
+            lastNode.valueNode = default(T);
             return aux.valueNode;
         }
-
+        public List<T> showValues(Node<T> lastNode, int initialLevel)
+        {
+            Node<T> aux = lastNode;
+            List<T> values = new List<T>();
+            while (lastNode != null && lastNode.position != numberNodes && initialLevel >= 1)
+            {
+                if ((numberNodes / (Math.Pow((initialLevel - 1), 2))) % 2 == 0)
+                {
+                    values.Add(lastNode.leftNode.valueNode);
+                    DeleteNode(lastNode.leftNode, initialLevel--);
+                }
+                else if ((numberNodes / (Math.Pow((initialLevel - 1), 2))) % 2 == 1)
+                {
+                    values.Add(lastNode.rightNode.valueNode);
+                    DeleteNode(lastNode.rightNode, initialLevel--);
+                }
+            }
+            return values;
+        }
         public int level() {
-            return Convert.ToInt32((Math.Log(Math.E, Convert.ToDouble(numberNodes)))/Math.Log(Math.E, 2));
+            if ((Math.Pow(levelCompleted,2) == nodesInLevel)) {
+                nodesInLevel = nodesInLevel - 2 ^ levelCompleted;
+                levelCompleted = +1;
+            }
+            return levelCompleted;
         }
 
         /// <summary>
@@ -132,29 +159,27 @@ namespace CustomGenerics.Structures {
         /// <param name="nodeChange"></param>
         /// <param name="ComparePriority"></param>
         public void downChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority) {
-
-            if (nodeChange.rightNode == null)
-            {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
-                    nodeChange.valueNode = nodeChange.leftNode.valueNode;
-                    nodeChange.leftNode.valueNode = original;
-                    downChange(nodeChange.leftNode,original, ComparePriority);
-                }
-            }
-            else {
-                if (ComparePriority.Invoke(nodeChange.leftNode.valueNode, nodeChange.rightNode.valueNode) > 0) {
-                    if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
-                        nodeChange.valueNode = nodeChange.rightNode.valueNode;
-                        nodeChange.rightNode.valueNode = original;
-                        downChange(nodeChange.rightNode, original, ComparePriority);
-                        
-                    }
-                }
-                else if (ComparePriority.Invoke(nodeChange.rightNode.valueNode, nodeChange.leftNode.valueNode) < 0) {
-                    if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) < 0) {
+            if (nodeChange.leftNode.valueNode != null && nodeChange.rightNode.valueNode != null) {
+                if (nodeChange.rightNode == null) {
+                    if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                         nodeChange.valueNode = nodeChange.leftNode.valueNode;
                         nodeChange.leftNode.valueNode = original;
                         downChange(nodeChange.leftNode, original, ComparePriority);
+                    }
+                } else {
+                    if (ComparePriority.Invoke(nodeChange.leftNode.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                        if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                            nodeChange.valueNode = nodeChange.rightNode.valueNode;
+                            nodeChange.rightNode.valueNode = original;
+                            downChange(nodeChange.rightNode, original, ComparePriority);
+
+                        }
+                    } else if (ComparePriority.Invoke(nodeChange.rightNode.valueNode, nodeChange.leftNode.valueNode) < 0) {
+                        if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) < 0) {
+                            nodeChange.valueNode = nodeChange.leftNode.valueNode;
+                            nodeChange.leftNode.valueNode = original;
+                            downChange(nodeChange.leftNode, original, ComparePriority);
+                        }
                     }
                 }
             }

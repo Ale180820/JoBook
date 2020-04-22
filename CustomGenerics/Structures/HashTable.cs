@@ -104,7 +104,8 @@ namespace CustomGenerics.Structures {
                 int index = probe(key, i, size);
                 if (table[index] == null){
                     return null;
-                }else if (table[index].key.Equals(key) && !table[index].IsDeleted()){
+                }else if (table[index].key.Equals(key) && !table[index].IsDeleted())
+                {
                     return table[index].value;
                 }
             }

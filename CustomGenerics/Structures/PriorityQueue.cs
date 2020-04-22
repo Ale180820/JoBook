@@ -16,12 +16,15 @@ namespace CustomGenerics.Structures
             Enqueue(value, comparison);
         }
 
-        public T DequeueTask(Comparison<T> comparison) {
-            return Dequeue(comparison);
+        public T DequeueTask(T value, Comparison<T> comparison) {
+            return Dequeue(value, comparison);
         }
 
         public T PeekTask() {
             return peek();
+        }
+        public List<T> showQueue() {
+            return root.showValues(root, root.level());
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -30,11 +33,16 @@ namespace CustomGenerics.Structures
         protected override void Enqueue(T value, Comparison<T> comparison) {
             this.root.AddNode(root, value, comparison);
         }
-        protected override T Dequeue(Comparison<T> comparison) {
+        protected override T Dequeue(T value, Comparison<T> comparison) {
             T dequeueNode = root.getNodeValue();
-            root.setNodeValue(root.DeleteNode(root, root.level()));
-            T auxRoot = root.getNodeValue();
-            root.downChange(root, auxRoot, comparison);
+            if (root.getLeftNode().getNodeValue() != null && root.getRightNode().getNodeValue() != null) {
+                root.setNodeValue(root.DeleteNode(root, root.level()));
+                T auxRoot = root.getNodeValue();
+                root.downChange(root, auxRoot, comparison);
+            }
+            else {
+                root = null;
+            }
             return dequeueNode;
         }
 
