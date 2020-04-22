@@ -11,11 +11,10 @@ namespace JoBook.Controllers {
             return View();
         }
 
-        public ActionResult UserProfile(){
-            
+        public ActionResult UserProfile() {
 
             return View("UserProfile");
-
+            
         }
 
         public ActionResult ManagementProfile(string completed){
@@ -53,8 +52,17 @@ namespace JoBook.Controllers {
                     Type = Convert.ToInt32(collection["Type"])
                 };
                 newUser.saveUser(false);
-                return RedirectToAction("Index", "Home");
-            }catch {
+                if (Storage.Instance.userLogin.loginUser()) {
+                    if (Storage.Instance.userLogin.Type == 2) {
+                        return RedirectToAction("UserProfile", "User");
+                    } else {
+                        return RedirectToAction("ManagementProfile", "User");
+                    }
+                }
+
+                return View();
+            }
+            catch {
                 return View();
             }
         }

@@ -1,4 +1,5 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
 using System.Web.Mvc;
 
@@ -23,7 +24,8 @@ namespace JoBook.Controllers {
         // POST: Task/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try {
+            try
+            {
                 var newTask = new Task {
                     Name = collection["Name"],
                     Description = collection["Description"],
@@ -32,12 +34,31 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-                newTask.saveTask(false);
-                return RedirectToAction("ManagementProfile", "User");
-            }catch{
+
+                var enqueueTask = new Task {
+                    Name = collection["Name"],
+                    Priority = Convert.ToInt32(collection["Priority"])
+                };
+
+                if (newTask.saveTask(false)) {
+                    Storage.Instance.queueTask.EnqueueTask(enqueueTask, Task.ComparePriority);
+                }
+
+                if (Storage.Instance.userLogin.loginUser()) {
+                    if (Storage.Instance.userLogin.Type == 2) {
+                        return RedirectToAction("UserProfile", "User");
+                    }
+                    else {
+                        return RedirectToAction("ManagementProfile", "User");
+                    }
+                }
+                return View();
+            }
+            catch{
                 return View();
             }
         }
+
 
         // GET: Task/Edit/5
         public ActionResult Edit(int id) {

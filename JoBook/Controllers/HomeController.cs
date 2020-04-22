@@ -23,7 +23,7 @@ namespace JoBook.Controllers {
 
             if (userLogin.loginUser()){
                 if (Storage.Instance.userLogin.Type == 2){
-                    return RedirectToAction("UserProfile","User");
+                    return RedirectToAction("UserProfile", "User");
                 }else{
                     return RedirectToAction("ManagementProfile", "User");
                 }

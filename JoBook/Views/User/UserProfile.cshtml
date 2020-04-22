@@ -24,7 +24,14 @@
             <div class="tab-pane">
                 <ul class="list-group">
                     <li class="list-group-item text-muted">Tasks</li>
-                    <li class="list-group-item text-right"><a class="float-left">Create the user model</a> <button class="btn-sm btn-primary">Terminado</button></li>
+                    <li class="list-group-item text-muted">Profile</li>
+                    @if (JoBook.Services.Storage.Instance.queueTask.PeekTask() != null)
+                    {
+                        <li class="list-group-item text-right"><span class="float-left"><strong>Id Task</strong></span>@JoBook.Services.Storage.Instance.queueTask.PeekTask().Name</li>
+                        <li class="list-group-item text-right"><span class="float-left"><strong>Name</strong></span>@JoBook.Services.Storage.Instance.queueTask.PeekTask().Description</li>
+                        <li class="list-group-item text-right"><span class="float-left"><strong>Description</strong></span>@JoBook.Services.Storage.Instance.queueTask.PeekTask().Delivery</li>
+                    }
+
                 </ul>
             </div>
         </div>

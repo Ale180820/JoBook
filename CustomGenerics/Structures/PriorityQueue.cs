@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace CustomGenerics.Structures 
 {
-    public class PriorityQueue<T> : IPriorityQueue<T>
+    public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T>
     {
         Node<T> root = new Node<T>();
    
@@ -22,6 +22,10 @@ namespace CustomGenerics.Structures
 
         public T PeekTask() {
             return peek();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
         protected override void Enqueue(T value, Comparison<T> comparison) {
             this.root.AddNode(root, value, comparison);
@@ -37,6 +41,11 @@ namespace CustomGenerics.Structures
         protected override T peek() {
             return root.getNodeValue();
         }
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
 
     }
 }

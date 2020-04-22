@@ -36,6 +36,32 @@
                 </ul>
             </div>
         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id User</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Delivery</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in JoBook.Services.Storage.Instance.hashTable)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idUser)
+                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayFor(modelItem => item.Project)
+                            @Html.DisplayFor(modelItem => item.Delivery)
+                        </td>
+                    </tr>
+                }*@
+            </tbody>
+        </table>
         <button type="button" onclick="location.href='@Url.Action("Create", "Task")'" class="btn btn-primary btn-sm">Create task</button>
     </div>
 </div>
