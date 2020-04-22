@@ -26,13 +26,15 @@ namespace CustomGenerics.Structures
         public List<T> showQueue() {
             return root.showValues(root, root.level());
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+
+        IEnumerator IEnumerable.GetEnumerator(){
             throw new NotImplementedException();
         }
+
         protected override void Enqueue(T value, Comparison<T> comparison) {
             this.root.AddNode(root, value, comparison);
         }
+
         protected override T Dequeue(T value, Comparison<T> comparison) {
             T dequeueNode = root.getNodeValue();
             if (root.getLeftNode().getNodeValue() != null && root.getRightNode().getNodeValue() != null) {

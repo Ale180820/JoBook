@@ -21,6 +21,15 @@ namespace JoBook.Models {
         public int idUser { get; set; }
         public DateTime Delivery { get; set; }
 
+        public Task() { 
+        
+        }
+
+        public Task(String Name, int Priority){
+            this.Priority = Priority;
+            this.Name = Name;
+        }
+
         /// <summary>
         /// Delegate to compare the tasks
         /// </summary>
@@ -32,8 +41,11 @@ namespace JoBook.Models {
             try {
                 if (type) {
                     Storage.Instance.hashTable.insert(this.Name, this);
-                }else {
+                    Storage.Instance.queueTask.EnqueueTask(new Task(this.Name, this.Priority), Task.ComparePriority);
+                }
+                else {
                     Storage.Instance.hashTable.insert(this.Name, this);
+                    Storage.Instance.queueTask.EnqueueTask(new Task(this.Name, this.Priority), Task.ComparePriority);
                     var path = AppDomain.CurrentDomain.BaseDirectory + "/files/Tasks/Tasks.csv";
                     var streamWriter = new StreamWriter(path, true);
                     streamWriter.WriteLine(this.idTask + "," + this.Name + "," + this.Description + "," + this.Project + ","

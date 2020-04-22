@@ -35,8 +35,7 @@ namespace JoBook.Controllers {
         // POST: Task/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try
-            {
+            try{
                 var newTask = new Task {
                     Name = collection["Name"],
                     Description = collection["Description"],
@@ -45,15 +44,6 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
-
-                var enqueueTask = new Task {
-                    Name = collection["Name"],
-                    Priority = Convert.ToInt32(collection["Priority"])
-                };
-
-                if (newTask.saveTask(false)) {
-                    Storage.Instance.queueTask.EnqueueTask(enqueueTask, Task.ComparePriority);
-                }
                 
                 if (Storage.Instance.userLogin.loginUser()) {
                     if (Storage.Instance.userLogin.Type == 2) {
