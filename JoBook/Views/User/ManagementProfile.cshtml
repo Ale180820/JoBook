@@ -33,11 +33,45 @@
                 <h2></h2>
                 <ul class="list-group">
                     <li class="list-group-item text-muted">Tasks</li>
-                    <li class="list-group-item text-right"><a class="float-left">Create the user model</a></li>
                 </ul>
             </div>
         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id User</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Delivery</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (JoBook.Services.Storage.Instance.queueTask.PeekTask() != null)
+                {
+                    foreach (var item in JoBook.Services.Storage.Instance.queueTask.showQueue())
+                    {
+                        foreach (var task in JoBook.Services.Storage.Instance.hashTable.find(item.Name))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.idUser)
+                                    @Html.DisplayFor(modelItem => task.Name)
+                                    @Html.DisplayFor(modelItem => task.Description)
+                                    @Html.DisplayFor(modelItem => task.Project)
+                                    @Html.DisplayFor(modelItem => task.Delivery)
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                }
+
+            </tbody>
+        </table>
     </div>
 </div>
-<br />
+
 

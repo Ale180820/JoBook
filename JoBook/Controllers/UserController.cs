@@ -1,5 +1,7 @@
 ﻿using JoBook.Models;
+using JoBook.Services;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace JoBook.Controllers {
@@ -10,11 +12,26 @@ namespace JoBook.Controllers {
             return View();
         }
 
-        public ActionResult UserProfile(){
+        public ActionResult UserProfile(string completed) {
+
+            if(Storage.Instance.queueTask.PeekTask().Name != null) {
+                foreach (var item in Storage.Instance.hashTable.find(Storage.Instance.queueTask.PeekTask().Name)) {
+                    Storage.Instance.taskV.Name = item.Name;
+                    Storage.Instance.taskV.Description = item.Description;
+                    Storage.Instance.taskV.Delivery = item.Delivery;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(completed)) {
+                if (Storage.Instance.queueTask.PeekTask() != null) {
+                    Storage.Instance.hashTable.delete(Storage.Instance.queueTask.DequeueTask(Storage.Instance.queueTask.PeekTask(), Task.ComparePriority).Name);
+                }
+            }
+            
             return View("UserProfile");
         }
 
-        public ActionResult ManagementProfile(){
+        public ActionResult ManagementProfile(string completed){
             return View("ManagementProfile");
         }
 
@@ -44,8 +61,17 @@ namespace JoBook.Controllers {
                     Type = Convert.ToInt32(collection["Type"])
                 };
                 newUser.saveUser(false);
-                return RedirectToAction("Index", "Home");
-            }catch {
+                if (Storage.Instance.userLogin.loginUser()) {
+                    if (Storage.Instance.userLogin.Type == 2) {
+                        return RedirectToAction("UserProfile", "User");
+                    } else {
+                        return RedirectToAction("ManagementProfile", "User");
+                    }
+                }
+
+                return View();
+            }
+            catch {
                 return View();
             }
         }
