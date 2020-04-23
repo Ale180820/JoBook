@@ -138,15 +138,13 @@ namespace CustomGenerics.Structures {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = original;
                 }
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0)
-                {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
                     nodeChange.valueNode = nodeChange.rightNode.valueNode;
                     nodeChange.rightNode.valueNode = original;
                 }
             }
             else if (nodeChange.rightNode.valueNode == null) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0)
-                {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = original;
                 }

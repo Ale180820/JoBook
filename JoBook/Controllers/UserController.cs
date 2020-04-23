@@ -14,19 +14,19 @@ namespace JoBook.Controllers {
 
         public ActionResult UserProfile(string completed) {
 
-            if(Storage.Instance.queueTask.PeekTask().Name != null) {
-                foreach (var item in Storage.Instance.hashTable.find(Storage.Instance.queueTask.PeekTask().Name)) {
-                    Storage.Instance.taskV.Name = item.Name;
-                    Storage.Instance.taskV.Description = item.Description;
-                    Storage.Instance.taskV.Delivery = item.Delivery;
-                }
-            }
+            //if(Storage.Instance.queueTask.PeekTask().Name != null) {
+            //    foreach (var item in Storage.Instance.hashTable.find(Storage.Instance.queueTask.PeekTask().Name)) {
+            //        Storage.Instance.taskV.Name = item.Name;
+            //        Storage.Instance.taskV.Description = item.Description;
+            //        Storage.Instance.taskV.Delivery = item.Delivery;
+            //    }
+            //}
 
-            if (!String.IsNullOrEmpty(completed)) {
-                if (Storage.Instance.queueTask.PeekTask() != null) {
-                    Storage.Instance.hashTable.delete(Storage.Instance.queueTask.DequeueTask(Storage.Instance.queueTask.PeekTask(), Task.ComparePriority).Name);
-                }
-            }
+            //if (!String.IsNullOrEmpty(completed)) {
+            //    if (Storage.Instance.queueTask.PeekTask() != null) {
+            //        Storage.Instance.hashTable.delete(Storage.Instance.queueTask.DequeueTask(Storage.Instance.queueTask.PeekTask(), Task.ComparePriority).Name);
+            //    }
+            //}
             
             return View("UserProfile");
         }
