@@ -32,20 +32,22 @@ namespace CustomGenerics.Structures
         }
 
         protected override void Enqueue(T value, Comparison<T> comparison) {
-            this.root.AddNode(root, value, comparison);
+            this.root.AddNode(root, value, comparison,(root.level()));
+            root.levelCompleted = 0;
         }
 
         protected override T Dequeue(T value, Comparison<T> comparison) {
             T dequeueNode = root.getNodeValue();
             if (root.getLeftNode().getNodeValue() != null && root.getRightNode().getNodeValue() != null) {
-                root.setNodeValue(root.DeleteNode(root, root.level()));
+                root = root.DeleteLastNode(root, root.level());
                 T auxRoot = root.getNodeValue();
                 root.downChange(root, auxRoot, comparison);
+                root.setNodeValue(root.getNodeValue());
             }
             else {
                 root = null;
             }
-            return dequeueNode;
+            return root.getNodeValue();
         }
 
         protected override T peek() {

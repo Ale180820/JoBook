@@ -44,7 +44,10 @@ namespace JoBook.Controllers {
                     idUser = Convert.ToInt32(collection["idUser"]),
                     Delivery = Convert.ToDateTime(collection["Delivery"])
                 };
+
+                Storage.Instance.queueTask.EnqueueTask(newTask, Task.ComparePriority);
                 
+
                 if (Storage.Instance.userLogin.loginUser()) {
                     if (Storage.Instance.userLogin.Type == 2) {
                         return RedirectToAction("UserProfile", "User");
