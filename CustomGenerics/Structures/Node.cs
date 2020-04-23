@@ -9,6 +9,7 @@ namespace CustomGenerics.Structures {
         private Node<T> leftNode;
         private Node<T> rightNode;
         public Node<T> aux;
+        public List<T> values = new List<T>();
         private T valueNode;
         public int numberNodes = 0;
         public int counter = 0;
@@ -37,6 +38,7 @@ namespace CustomGenerics.Structures {
                 root.rightNode = new Node<T>();
                 numberNodes++;
                 root.position = numberNodes;
+                values.Add(value);
             }
             else if (root.leftNode.valueNode == null && root.rightNode.valueNode == null) {
                 AddNode(root.leftNode, value, ComparePriority, initialLevel);
@@ -106,48 +108,8 @@ namespace CustomGenerics.Structures {
                 }
             }
             final = false;
-            lastNode.valueNode = auxiliar.valueNode;
+            return auxiliar;
 
-            if (lastNode.position != numberNodes && initialLevel >= 2) { 
-                if ((numberNodes / Convert.ToInt32(Math.Pow(2, (initialLevel - 1)))) % 2 == 0) {
-                    return DeleteLastNode(lastNode.leftNode, --initialLevel);
-                }
-                else {
-                    return DeleteLastNode(lastNode.rightNode, --initialLevel);
-                }
-            }
-            else {
-                if(lastNode.rightNode == null) {
-                    lastNode.leftNode = null;
-                    --numberNodes;
-                    return lastNode;
-                }
-                else {
-                    lastNode.rightNode = null;
-
-                    return lastNode;
-                }
-            }
-            
-        }
-        public List<T> showValues(Node<T> lastNode, int initialLevel)
-        {
-            Node<T> aux = lastNode;
-            List<T> values = new List<T>();
-            while (lastNode != null && lastNode.position != numberNodes && initialLevel >= 1)
-            {
-                if ((numberNodes / (Math.Pow((initialLevel - 1), 2))) % 2 == 0)
-                {
-                    values.Add(lastNode.leftNode.valueNode);
-                    showValues(lastNode.leftNode, --initialLevel);
-                }
-                else if ((numberNodes / (Math.Pow((initialLevel - 1), 2))) % 2 == 1)
-                {
-                    values.Add(lastNode.rightNode.valueNode);
-                    showValues(lastNode.rightNode, --initialLevel);
-                }
-            }
-            return values;
         }
         public int level() {
             int total = Convert.ToInt32(Math.Pow(2, levelCompleted));

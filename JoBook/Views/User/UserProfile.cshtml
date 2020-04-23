@@ -3,45 +3,49 @@
 
 <br />
 <div class="container container-fluid">
-    <div class="col-sm-10">
-        <h6>@(JoBook.Services.Storage.Instance.userLogin.returnGreeting())</h6>
-    </div>
-    <div class="col-sm-10">
-        <h1>@(JoBook.Services.Storage.Instance.userLogin.Nickname)</h1>
-    </div>
-    <div class="form-inline">
-        <button type="button" onclick="location.href='@Url.Action("Create", "Task")'" class="btn btn-primary btn-sm">Create task</button>
-        <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-danger btn-sm">Log out</button>
+    <div class="row">
+        <div class="col-sm-10">
+            <h6>@(JoBook.Services.Storage.Instance.userLogin.returnGreeting())</h6>
+        </div>
+        <div class="col-sm-10">
+            <h1>@(JoBook.Services.Storage.Instance.userLogin.Nickname)</h1>
+        </div>
+        <div class="form-inline">
+            <button type="button" onclick="location.href='@Url.Action("Create", "Task")'" class="btn btn-primary btn-sm">Create task</button>
+            <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-danger btn-sm">Log out</button>
+        </div>
     </div>
     <br />
-    <div class="row">
-        <div class="col-sm-3">
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Profile</li>
-                <li class="list-group-item text-right"><span class="float-left"><strong>Id</strong></span>@JoBook.Services.Storage.Instance.userLogin.IdUser</li>
-                <li class="list-group-item text-right"><span class="float-left"><strong>Name</strong></span>@JoBook.Services.Storage.Instance.userLogin.Name</li>
-                <li class="list-group-item text-right"><span class="float-left"><strong>Lastame</strong></span>@JoBook.Services.Storage.Instance.userLogin.Lastname</li>
-                <li class="list-group-item text-right"><span class="float-left"><strong>Rol</strong></span>@JoBook.Services.Storage.Instance.userLogin.evaluateTypeUser()</li>
-            </ul>
-        </div>
-        <div class="col-sm-9">
-            <div class="tab-pane">
+        <div class="row">
+            <div class="col-sm-3">
                 <ul class="list-group">
-                    <li class="list-group-item text-muted">Tasks</li>
                     <li class="list-group-item text-muted">Profile</li>
-                    @if (JoBook.Services.Storage.Instance.queueTask.PeekTask() != null) {
-                        <li class="list-group-item text-right"><span class="float-left"><strong>Name</strong></span>@JoBook.Services.Storage.Instance.taskV.Name</li>
-                        <li class="list-group-item text-right"><span class="float-left"><strong>Description</strong></span>@JoBook.Services.Storage.Instance.taskV.Description</li>
-                        <li class="list-group-item text-right"><span class="float-left"><strong>Delivery</strong></span>@JoBook.Services.Storage.Instance.taskV.Delivery</li>
-                    }
+                    <li class="list-group-item text-right"><span class="float-left"><strong>Id</strong></span>@JoBook.Services.Storage.Instance.userLogin.IdUser</li>
+                    <li class="list-group-item text-right"><span class="float-left"><strong>Name</strong></span>@JoBook.Services.Storage.Instance.userLogin.Name</li>
+                    <li class="list-group-item text-right"><span class="float-left"><strong>Lastame</strong></span>@JoBook.Services.Storage.Instance.userLogin.Lastname</li>
+                    <li class="list-group-item text-right"><span class="float-left"><strong>Rol</strong></span>@JoBook.Services.Storage.Instance.userLogin.evaluateTypeUser()</li>
                 </ul>
             </div>
-            @using (Html.BeginForm("UserProfile", "User", FormMethod.Post))
-            {
-                <button class="btn btn-primary btn-sm" value="completed" name="completed">Completed</button>
-            }
-        </div>
+            <div class="col-sm-9">
+                <div class="tab-pane">
+                    <ul class="list-group">
+                        <li class="list-group-item text-muted">Tasks</li>
+                        @if (JoBook.Services.Storage.Instance.queueTask.PeekTask() != null) {
+                            <li class="list-group-item text-right"><span class="float-left"><strong>Name</strong></span>@JoBook.Services.Storage.Instance.taskV.Name</li>
+                            <li class="list-group-item text-right"><span class="float-left"><strong>Description</strong></span>@JoBook.Services.Storage.Instance.taskV.Description</li>
+                            <li class="list-group-item text-right"><span class="float-left"><strong>Delivery</strong></span>@JoBook.Services.Storage.Instance.taskV.Delivery</li>
+                        }
+                    </ul>
+                </div>
+                <br />
+                <div class="row-cols-3">
+                    @using (Html.BeginForm("UserProfile", "User", FormMethod.Post))
+                    {
+                        <button class="btn btn-primary btn-sm" value="completed" name="completed">Completed</button>
+                    }
+                </div>
+            </div>
 
+        </div>
     </div>
-</div>
 <br />

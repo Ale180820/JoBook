@@ -10,8 +10,9 @@ using System.Collections.Generic;
 
 namespace CustomGenerics.Structures {
 
-    public class HashTable<T> : IEnumerable<T> {
+    public class HashTable<T> {
 
+        //List container
         private class HashEntry<T> {
 
             public string key;
@@ -32,15 +33,18 @@ namespace CustomGenerics.Structures {
             }
         }
 
+        //Class atributes
         private int[] SIZES = { 50, 100, 300 };
         private int sizeIdx = 0;
         private HashEntry<T>[] table;
         private int numEntries, numFilledSlots, numProbes = 0;
 
+        //Constructor class
         public HashTable() {
             table = new HashEntry<T>[SIZES[sizeIdx]];
         }
 
+        //Method to increase the size of the table
         private void increaseCapacity(){
             HashEntry<T>[] oldTable = table;
             table = new HashEntry<T>[SIZES[++sizeIdx]];
@@ -53,6 +57,7 @@ namespace CustomGenerics.Structures {
             }
         }
 
+        //Method to instert tasks
         public bool insert(String key, T value){
             int size = SIZES[sizeIdx];
             int iteration = 0;
@@ -81,10 +86,12 @@ namespace CustomGenerics.Structures {
             return false;
         }
 
+        //Hash function
         private int probe(String key, int iteration, int size) {
             return (hash(key) + ((int)(Math.Pow(iteration, 2) + iteration) >> 2)) % size;
         }
 
+        //Method that parses the value to add
         public int hash(String key) {
             int hashValue = 0;
             for (int pos = 0; pos < key.Length; ++pos) {
@@ -98,6 +105,7 @@ namespace CustomGenerics.Structures {
             return hashValue;
         }
         
+        //Method of find element in hash table
         public List<T> find(String key){
             int size = SIZES[sizeIdx];
             for (int i = 0; i < size; ++i){
@@ -112,6 +120,7 @@ namespace CustomGenerics.Structures {
             return null;
         }
 
+        //Method to delete element to hash table
         public bool delete(String key) {
             int size = SIZES[sizeIdx];
             for (int i = 0; i < size; ++i) {
@@ -125,16 +134,5 @@ namespace CustomGenerics.Structures {
             }
             return false;
         }
-
-        //Interface method
-        IEnumerator IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        //Interface method
-        public IEnumerator<T> GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
     }
 }

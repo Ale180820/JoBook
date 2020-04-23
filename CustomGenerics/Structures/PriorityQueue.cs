@@ -23,9 +23,8 @@ namespace CustomGenerics.Structures
         public T PeekTask() {
             return peek();
         }
-        public List<T> showQueue() {
-            return root.showValues(root, root.level());
-        }
+
+
 
         IEnumerator IEnumerable.GetEnumerator(){
             throw new NotImplementedException();
@@ -39,7 +38,7 @@ namespace CustomGenerics.Structures
         protected override T Dequeue(T value, Comparison<T> comparison) {
             T dequeueNode = root.getNodeValue();
             if (root.getLeftNode().getNodeValue() != null && root.getRightNode().getNodeValue() != null) {
-                root = root.DeleteLastNode(root, root.level());
+                root.setNodeValue(root.DeleteLastNode(root, root.level()).getNodeValue());
                 T auxRoot = root.getNodeValue();
                 root.downChange(root, auxRoot, comparison);
                 root.setNodeValue(root.getNodeValue());
@@ -49,6 +48,12 @@ namespace CustomGenerics.Structures
             }
             return root.getNodeValue();
         }
+
+        public List<T> showTask() {
+            return root.values;
+        }
+
+
 
         protected override T peek() {
             return root.getNodeValue();
