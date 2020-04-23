@@ -119,10 +119,12 @@ namespace CustomGenerics.Structures {
             else {
                 if(lastNode.rightNode == null) {
                     lastNode.leftNode = null;
+                    --numberNodes;
                     return lastNode;
                 }
                 else {
                     lastNode.rightNode = null;
+
                     return lastNode;
                 }
             }
@@ -163,8 +165,7 @@ namespace CustomGenerics.Structures {
         /// <param name="ComparePriority"></param>
         public void upChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority) {
             
-            if (nodeHasChild(nodeChange) == 1)
-            {
+            if (nodeHasChild(nodeChange) == 1) {
                 if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0)
                 {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
